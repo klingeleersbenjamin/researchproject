@@ -1,0 +1,29 @@
+- hosts: localhost
+  name: Create network + Keypair + security group
+  roles:
+    - os_net
+    - os_keypair
+    - os_sec_group
+
+- hosts: localhost
+  name: create webserver1
+  roles:
+    - os_instance
+  vars:
+    instance_name: apache1
+    instance_group: webservers
+- hosts: localhost
+  name: create webserver2
+  roles:
+    - os_instance
+  vars:
+    instance_name: apache2
+    instance_group: webservers
+- hosts: localhost
+  name: create loadbalancer
+  roles:
+    - os_instance
+  vars:
+    instance_name: NginxLoadBalancer
+    instance_group: loadbalancer
+

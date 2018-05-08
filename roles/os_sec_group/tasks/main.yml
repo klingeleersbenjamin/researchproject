@@ -1,0 +1,31 @@
+- name: Create new security group
+  os_security_group:
+    state: present
+    validate_certs: "{{ validate_certs }}"
+    name: "{{ sec_security_group_name }}"
+    description: Ansible generated security group
+
+- name: Allow SSH
+  os_security_group_rule:
+    security_group: "{{ sec_security_group_name }}"
+    protocol: tcp
+    port_range_min: 22
+    validate_certs: "{{ validate_certs }}"
+    port_range_max: 22
+    remote_ip_prefix: 0.0.0.0/0
+
+- name: Allow HTTP
+  os_security_group_rule:
+    security_group: "{{ sec_security_group_name }}"
+    protocol: tcp
+    port_range_min: 80
+    validate_certs: "{{ validate_certs }}"
+    port_range_max: 80
+    remote_ip_prefix: 0.0.0.0/0
+
+- name: Allow ICMP
+  os_security_group_rule:
+    security_group: "{{ sec_security_group_name }}"
+    protocol: icmp
+    validate_certs: "{{ validate_certs }}"
+    remote_ip_prefix: 0.0.0.0/0

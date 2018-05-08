@@ -1,0 +1,4 @@
+---
+validate_certs: true
+
+sec_security_group_name: ansible_sec_group

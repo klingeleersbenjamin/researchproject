@@ -1,0 +1,25 @@
+- name: Create new network
+  os_network:
+    state: present
+    name: "{{ net_network_name }}"
+    validate_certs: "{{ validate_certs }}"
+
+- name: Create new subnet
+  os_subnet:
+    state: present
+    network_name: "{{ net_network_name }}"
+    name: "{{ net_subnet_name }}"
+    cidr: "{{ net_cidr }}"
+    validate_certs: "{{ validate_certs }}"
+    dns_nameservers:
+      - "{{ net_dns_server_01 }}"
+      - "{{ net_dns_server_02 }}"
+
+- name: Create new router
+  os_router:
+    state: present
+    name: "{{ net_router_name }}"
+    network: "{{ net_external_network }}"
+    validate_certs: "{{ validate_certs }}"
+    interfaces:
+      - "{{ net_subnet_name }}"

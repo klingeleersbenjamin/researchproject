@@ -1,0 +1,9 @@
+- hosts: webservers
+  name: Install Apache on webservers
+  roles:
+    - apache
+
+- hosts: loadbalancer
+  name: Install Nginx as loadbalancer
+  roles:
+    - nginx

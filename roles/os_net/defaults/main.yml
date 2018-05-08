@@ -1,0 +1,12 @@
+---
+validate_certs: true
+
+net_network_name: internal_network
+net_subnet_name: internal_network_sub_1
+net_router_name: internal_router
+net_cidr: 192.168.10.0/24
+net_external_network: vlan1288
+net_dns_server_01: 10.50.40.100
+net_dns_server_02: 10.50.40.101
+
+sec_security_group_name: ansible_sec_group

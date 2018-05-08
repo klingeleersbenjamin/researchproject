@@ -1,0 +1,5 @@
+---
+sec_key_name: ansible_key
+sec_privkey_destination: ~/{{ sec_key_name }}.pem
+
+validate_certs: true

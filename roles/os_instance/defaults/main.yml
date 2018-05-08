@@ -1,0 +1,15 @@
+---
+instance_name: vm1
+instance_flavor: m1.small
+instance_image: d7eb0e29-8f50-4a3d-8275-45f8820d4deb
+instance_auto_ip: true
+instance_group: default
+instance_state: present
+
+sec_key_name: ansible_key
+sec_security_group_name: ansible_sec_group
+
+net_networks:
+  - net-name: internal_network
+
+validate_certs: true

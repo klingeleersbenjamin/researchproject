@@ -1,0 +1,17 @@
+- name: Install the package apache2
+  apt:
+    name: apache2
+    state: present
+  become: true
+
+- name: Copy index file
+  template:
+    src: index.j2
+    dest: /var/www/html/index.html
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  become: true
+  notify:
+    - Restart apache

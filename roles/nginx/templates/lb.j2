@@ -1,0 +1,11 @@
+upstream backend  {
+  {% for h in groups['webservers'] %}
+    server {{ hostvars[h].openstack.addresses.internal_network[0].addr }};
+  {% endfor %}
+}
+
+server {
+  location / {
+    proxy_pass  http://backend;
+  }
+}

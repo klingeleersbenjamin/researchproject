@@ -1,0 +1,12 @@
+- name: Create keypair
+  os_keypair:
+    state: present
+    name: "{{ sec_key_name }}"
+    validate_certs: "{{ validate_certs }}"
+  register: keypair
+
+- name: Export private_key
+  copy: 
+    content: "{{ keypair['key']['private_key'] }}"
+    dest: "{{ sec_privkey_destination }}"
+  when: keypair.changed

@@ -1,0 +1,34 @@
+- name: Create a new instance and attaches to a network
+  os_server:
+    state: "{{ instance_state }}"
+    name: "{{ instance_name }}"
+    image: "{{ instance_image }}"
+    key_name: "{{ sec_key_name }}"
+    timeout: 200
+    flavor: "{{ instance_flavor }}"
+    validate_certs: "{{ validate_certs }}"
+    auto_ip: "{{ instance_auto_ip }}"
+    security_groups: 
+      - default
+      - "{{ sec_security_group_name }}"
+    nics: "{{ net_networks }}"
+    meta:
+      group: "{{ instance_group }}"
+    userdata: |
+      {%- raw -%}#!/bin/bash
+      echo "Installing Python"
+      apt install -y python python-minimal
+      dhclient ens4
+      {% endraw %}
+
+- name: Get Server facts
+  os_server_facts:
+    server: lamp*
+
+- name: Add server to inventory
+  add_host: 
+    name: "{{ item.name }}" 
+    groups: lamp 
+    ansible_ssh_host: "{{ item.accessIPv4 }}"
+    ansible_ssh_private_key_file: "{{ sec_privkey_destination }}"
+  with_items: "{{ openstack_servers }}"
